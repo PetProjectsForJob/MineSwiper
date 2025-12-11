@@ -31,7 +31,9 @@ services:
       - minesweeper-network
 
   jenkins:
-    image: jenkins/jenkins:lts
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
     container_name: minesweeper-jenkins
     ports:
       - "9090:8080"
@@ -43,6 +45,7 @@ services:
       - JAVA_OPTS=-Dhudson.model.DirectoryBrowserSupport.CSP=
     networks:
       - minesweeper-network
+    user: root
 
 volumes:
   postgres-data:
