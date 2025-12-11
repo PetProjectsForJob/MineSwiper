@@ -63,7 +63,9 @@ pipeline {
         
         stage('Docker Push') {
             when {
-                branch 'main'
+                expression { 
+                    return env.GIT_BRANCH == 'origin/main' || env.GIT_BRANCH == 'main'
+                }
             }
             steps {
                 script {
