@@ -1,0 +1,155 @@
+openapi: 3.0.0
+info:
+  title: Game API
+  description: API для управления игрой
+  version: 1.0.0
+paths:
+  /api/game:
+    post:
+      summary: Start a new game
+      operationId: startNewGame
+      responses:
+        '200':
+          description: Game successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+  /api/game/{id}/reveal:
+    post:
+      summary: Reveal a cell
+      operationId: revealCell
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Game ID
+        - name: row
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: Row of the cell
+        - name: col
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: Column of the cell
+      responses:
+        '200':
+          description: Cell revealed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+  /api/game/{id}/toggle-flag:
+    post:
+      summary: Toggle a flag on a cell
+      operationId: toggleFlag
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Game ID
+        - name: row
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: Row of the cell
+        - name: col
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: Column of the cell
+      responses:
+        '200':
+          description: Flag toggled successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+  /api/game/results:
+    get:
+      summary: Получить все результаты
+      description: Возвращает список всех сохранённых результатов игры.
+      tags:
+        - Game Results
+      responses:
+        '200':
+          description: Список результатов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GameResult'
+    post:
+      summary: Сохранить результат игры
+      description: Добавляет новый результат игры в память.
+      tags:
+        - Game Results
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameResult'
+      responses:
+        '200':
+          description: Успешное сохранение
+
+components:
+  schemas:
+    Game:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the game
+        rows:
+          type: integer
+          description: Number of rows in the game board
+        cols:
+          type: integer
+          description: Number of columns in the game board
+        minesCount:
+          type: integer
+          description: Total number of mines on the board
+        flagCount:
+          type: integer
+          description: Number of remaining flags
+        flaggedMines:
+          type: integer
+          description: Number of correctly flagged mines
+        board:
+          type: array
+          description: The game board as a 2D array of cells
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Cell'
+        gameOver:
+          type: boolean
+          description: Status indicating if the game is over
+    Cell:
+      type: object
+      properties:
+        mine:
+          type: boolean
+          description: Indicates if the cell contains a mine
+        revealed:
+          type: boolean
+          description: Status indicating if the cell has been revealed
+        flagged:
+          type: boolean
+          description: Status indicating if the cell has been flagged
+        adjacentMines:
+          type: integer
+          description: Number of adjacent mines around the cell

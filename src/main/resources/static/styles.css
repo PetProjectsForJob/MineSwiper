@@ -1,0 +1,218 @@
+/* Общий стиль */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f3f4f6;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    overflow: hidden;
+}
+
+.game-container {
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Информационная панель */
+#gameInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+#flagCount {
+    font-weight: bold;
+    color: #e63946;
+}
+
+button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #457b9d;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #1d3557;
+}
+
+/* Настройка сетки игрового поля */
+#board {
+    display: grid;
+    gap: 2px;
+    background-color: #d9e2ec;
+    border: 2px solid #b0bec5;
+    border-radius: 5px;
+    padding: 5px;
+    justify-content: center;
+    /* Ширина сетки зависит от числа колонок в игре, например, 10 колонок */
+    grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+    max-width: 100%;
+}
+
+/* Стиль клеток */
+.cell {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+/* Стили для открытых, помеченных и минных клеток */
+.cell.revealed {
+    background-color: #f1faee;
+    color: #1d3557;
+    cursor: default;
+}
+
+.cell.mine {
+    color: #e63946;
+}
+
+.cell.flagged {
+    color: #e63946;
+    font-size: 20px;
+}
+
+.cell:hover:not(.revealed) {
+    background-color: #a8dadc;
+    transform: scale(1.05);
+}
+
+/* Стили текста и иконок */
+.flag-icon {
+    font-size: 18px;
+    color: #e63946;
+}
+
+/* Стиль для модального окна */
+.modal {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Полупрозрачный чёрный фон */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Поверх всего остального контента */
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    max-width: 300px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+    color: #e63946; /* Красный цвет для акцента */
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.modal-content p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #457b9d;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+    background-color: #1d3557;
+}
+
+#results {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.accordion {
+    background-color: #457b9d;
+    color: white;
+    cursor: pointer;
+    padding: 10px 15px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.accordion:hover {
+    background-color: #1d3557;
+}
+
+.panel {
+    padding: 0 10px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+}
+
+.panel.open {
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#resultsList {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+#resultsList li {
+    padding: 5px;
+    margin-bottom: 4px;
+    background-color: #e6ecf0;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
