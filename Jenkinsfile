@@ -1,8 +1,9 @@
 pipeline {
-    agent any
-    
-    tools {
-        jdk 'JDK-17'
+    agent {
+        docker {
+            image 'eclipse-temurin:17-jdk'
+            args '-v /var/run/docker.sock:/var/run/docker.sock -u root'
+        }
     }
     
     stages {

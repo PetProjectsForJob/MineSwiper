@@ -38,13 +38,19 @@ services:
       - "50000:50000"
     volumes:
       - jenkins-data:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
+      - //var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - JAVA_OPTS=-Dhudson.model.DirectoryBrowserSupport.CSP=
     networks:
       - minesweeper-network
 
 volumes:
   postgres-data:
+    external: true
+    name: minesweeper_postgres-data
   jenkins-data:
+    external: true
+    name: minesweeper_jenkins-data
 
 networks:
   minesweeper-network:
