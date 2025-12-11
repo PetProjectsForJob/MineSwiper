@@ -45,7 +45,6 @@ services:
       - JAVA_OPTS=-Dhudson.model.DirectoryBrowserSupport.CSP=
     networks:
       - minesweeper-network
-    user: root
 
 volumes:
   postgres-data:
