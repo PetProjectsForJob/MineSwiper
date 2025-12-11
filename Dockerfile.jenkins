@@ -12,8 +12,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Добавить jenkins пользователя в docker группу
-RUN groupadd -g 999 docker || true && \
-    usermod -aG docker jenkins
+# Добавить jenkins пользователя в root группу для доступа к Docker socket
+RUN usermod -aG root jenkins
 
 USER jenkins
