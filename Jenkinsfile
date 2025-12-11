@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'eclipse-temurin:17-jdk'
-            args '-v /var/run/docker.sock:/var/run/docker.sock -u root'
-        }
-    }
+    agent any
     
     stages {
         stage('Checkout') {
